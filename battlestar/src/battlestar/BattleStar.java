@@ -92,6 +92,8 @@ public class BattleStar {
 		System.out.println("Player name: " + player_name);
 		Global.player = new Player(player_name);
 		Global.actors.add(Global.player);
+		Global.player.set_x(5);
+		Global.player.set_y(5);
 		create_window();
 	}
 }

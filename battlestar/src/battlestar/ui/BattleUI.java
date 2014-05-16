@@ -28,8 +28,9 @@ public class BattleUI extends JFrame implements KeyListener, ActionListener {
 				Global.CANVAS_HEIGHT);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
-		this.setFocusable(true);
 		timer.start();
+		canvas.setFocusable(true);;
+		canvas.addKeyListener(this);
 	}
 
 	@Override
@@ -60,6 +61,7 @@ public class BattleUI extends JFrame implements KeyListener, ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		this.repaint();
 		canvas.repaint();
 	}
 }

@@ -25,9 +25,10 @@ public class PaintCanvas extends JPanel{
 		g.drawImage(Global.background, 0, 0, null);
 		for (int i = 0; i < Global.actors.size(); i++) {
 			Image sprite = Global.actors.get(i).get_sprite();
-			int x = Global.actors.get(i).get_x() * Global.GRID_WIDTH;
-			int y = Global.actors.get(i).get_y() * Global.GRID_HEIGHT;
+			int x = Global.actors.get(i).get_x() * Global.sprite_width;
+			int y = Global.actors.get(i).get_y() * Global.sprite_height;
 			g.drawImage(sprite, x, y, Global.sprite_width, Global.sprite_height, null);
+			System.out.println("new update");
 		}
 	}
 }

@@ -17,9 +17,9 @@ public abstract class Actor {
 	abstract public int get_x();
 
 	abstract public int get_y();
-	
+
 	abstract public void set_x(int i);
-	
+
 	abstract public void set_y(int i);
 
 	abstract public void act();
@@ -27,7 +27,7 @@ public abstract class Actor {
 	public void print_location() {
 		System.out.println("x: " + this.x + " y: " + this.y);
 	}
-	
+
 	public void forward() {
 		if (this.y > 0) {
 			this.y--;
@@ -36,7 +36,7 @@ public abstract class Actor {
 	}
 
 	public void behind() {
-		if (this.y < Global.GRID_HEIGHT) {
+		if (this.y < Global.GRID_HEIGHT - 1) {
 			this.y++;
 		}
 		print_location();
@@ -50,9 +50,10 @@ public abstract class Actor {
 	}
 
 	public void right() {
-		if (this.x < Global.GRID_WIDTH) {
-			this.y++;
+		if (this.x < Global.GRID_WIDTH - 1) {
+			this.x++;
 		}
 		print_location();
 	}
+
 }
