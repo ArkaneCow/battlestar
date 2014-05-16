@@ -9,8 +9,8 @@ public class Player extends Actor {
 	public int player_health = 1000;
 	
 	public Player(String name) {
-		this.x = Global.CANVAS_WIDTH / 2;
-		this.y = Global.CANVAS_HEIGHT;
+		this.x = Global.GRID_WIDTH / 2;
+		this.y = Global.GRID_HEIGHT -2;
 		this.name = name;
 		this.sprite = Global.sprites.get("Player");
 	}
