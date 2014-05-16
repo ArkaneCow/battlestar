@@ -3,6 +3,7 @@ package battlestar.game.actor;
 import java.awt.Image;
 
 import battlestar.Global;
+import battlestar.game.projectile.Bullet;
 
 public class Player extends Actor {
 
@@ -15,6 +16,13 @@ public class Player extends Actor {
 		this.sprite = Global.sprites.get("Player");
 	}
 
+	public void shoot() {
+		Bullet b = new Bullet(0, -1);
+		b.set_x(this.get_x());
+		b.set_y(this.get_y() -1);
+		Global.actors.add(b);
+	}
+	
 	@Override
 	public void act() {
 

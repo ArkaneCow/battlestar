@@ -44,6 +44,8 @@ public class BattleUI extends JFrame implements KeyListener, ActionListener {
 			Global.player.behind();
 		} else if (key_code == KeyEvent.VK_D) {
 			Global.player.right();
+		} else if (key_code == KeyEvent.VK_SPACE) {
+			Global.player.shoot();
 		}
 	}
 
@@ -61,6 +63,9 @@ public class BattleUI extends JFrame implements KeyListener, ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		for (int i = 0; i < Global.actors.size(); i++) {
+			Global.actors.get(i).act();
+		}
 		this.repaint();
 		canvas.repaint();
 	}

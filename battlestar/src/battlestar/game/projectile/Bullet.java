@@ -46,6 +46,10 @@ public class Bullet extends Projectile {
 
 	@Override
 	public void act() {
+		if (this.x < 0 || this.x > Global.GRID_WIDTH || this.y < 0
+				|| this.y > Global.GRID_HEIGHT) {
+			Global.actors.remove(this);
+		}
 		boolean hit = false;
 		for (int i = 0; i < Global.actors.size(); i++) {
 			if (this.x == Global.actors.get(i).get_x()
@@ -63,28 +67,8 @@ public class Bullet extends Projectile {
 				}
 			}
 		}
-		if (!hit) {
-			if (dx > 0) {
-				for (int i = 0; i < dx; i++) {
-					this.right();
-				}
-			} else if (dx < 0) {
-				int count = Math.abs(dx);
-				for (int i = 0; i < count; i++) {
-					this.left();
-				}
-			}
-			if (dy > 0) {
-				for (int i = 0; i < dy; i++) {
-					this.behind();
-				}
-			} else if (dy < 0) {
-				int count = Math.abs(dy);
-				for (int i = 0; i < count; i++) {
-					this.forward();
-				}
-			}
-		}
+		this.set_x(this.get_x() + dx);
+		this.set_y(this.get_y() + dy);
 	}
 
 	@Override
