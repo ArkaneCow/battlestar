@@ -16,10 +16,15 @@ public class BattleUI extends JFrame implements KeyListener, ActionListener {
 
 	private PaintCanvas canvas;
 	private final Timer timer = new Timer(20, this);
+	private JLabel player_label;
 	
 	public BattleUI() {
+		this.setResizable(false);
 		this.setSize(new Dimension(Global.WINDOW_WIDTH, Global.WINDOW_HEIGHT));
 		this.setLayout(null);
+		player_label = new JLabel("Player: " + Global.player.get_name());
+		player_label.setBounds(10, 10, 200, 15);
+		this.add(player_label);
 		canvas = new PaintCanvas();
 		this.add(canvas);
 		int d_x = Global.WINDOW_WIDTH - Global.CANVAS_WIDTH;
