@@ -6,18 +6,18 @@ import battlestar.Global;
 import battlestar.game.actor.enemy.*;
 import battlestar.game.projectile.*;
 
-public class Chitauri extends Enemy {
+public class Biden extends Enemy {
 
 	private int dx = 1;
 	private int dy = 1;
 	private int count = 0;
-	private int move_count = 3;
+	private int move_count = 1;
 	private int shoot_count = 0;
-	private int shoot_cooldown = 3;
+	private int shoot_cooldown = 1;
 
-	public Chitauri() {
-		this.name = "Chitauri";
-		this.health = 200;
+	public Biden() {
+		this.name = "Biden";
+		this.health = 50;
 		this.point_value = 100;
 		this.sprite = Global.sprites.get(this.name);
 	}

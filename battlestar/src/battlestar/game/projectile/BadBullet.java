@@ -6,16 +6,16 @@ import battlestar.game.actor.enemy.Enemy;
 import battlestar.game.projectile.*;
 import battlestar.Global;
 
-public class Bullet extends Projectile {
+public class BadBullet extends Projectile {
 
 	private int dx;
 	private int dy;
 
-	public Bullet(int dx, int dy) {
+	public BadBullet(int dx, int dy) {
 		this.dx = dx;
 		this.dy = dy;
 		this.damage = 50;
-		this.name = "Bullet";
+		this.name = "BadBullet";
 		this.sprite = Global.sprites.get(this.name);
 	}
 
@@ -56,12 +56,7 @@ public class Bullet extends Projectile {
 					&& this.y == Global.actors.get(i).get_y()) {
 				hit = true;
 				// hitting object
-				if (battlestar.game.actor.enemy.Enemy.class
-						.isAssignableFrom(Global.actors.get(i).getClass())) {
-					// it hit an enemy;
-					Enemy e = (Enemy) Global.actors.get(i);
-					e.deal_damage(this.damage);
-				} else if (battlestar.game.actor.Player.class
+				if (battlestar.game.actor.Player.class
 						.isAssignableFrom(Global.actors.get(i).getClass())) {
 					Global.player.player_health -= this.damage;
 				}

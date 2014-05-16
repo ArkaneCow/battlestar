@@ -5,6 +5,8 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -14,11 +16,16 @@ import javax.swing.JOptionPane;
 
 import battlestar.game.actor.Actor;
 import battlestar.game.actor.Player;
+import battlestar.game.actor.enemy.Biden;
+import battlestar.game.actor.enemy.Chitauri;
+import battlestar.game.actor.enemy.Enemy;
+import battlestar.game.actor.enemy.Nixon;
 import battlestar.ui.*;
 import battlestar.Util;
 
 public class BattleStar {
 	private BattleUI ui;
+	private int enemy_type = 0;
 
 	public BattleStar() {
 		initialize();
@@ -71,7 +78,19 @@ public class BattleStar {
 			skybox = Util.resize_image(skybox, Global.CANVAS_WIDTH,
 					Global.CANVAS_HEIGHT);
 		}
+		Global.normal_background = skybox;
 		Global.background = skybox;
+		Image nixon = null;
+		try {
+			nixon = ImageIO.read(new File("nixon-background.png"));
+		} catch (Exception ex) {
+			System.out.println("Error loading image from file");
+			ex.printStackTrace();
+		}
+		if (nixon != null) {
+			nixon = Util.resize_image(nixon,  Global.CANVAS_WIDTH, Global.CANVAS_HEIGHT);
+		}
+		Global.nixon_background = nixon;
 	}
 
 	private void create_window() {
@@ -80,9 +99,62 @@ public class BattleStar {
 
 	public void initialize() {
 		Global.actors = new ArrayList<Actor>();
+		Global.enemies = new ArrayList<Enemy>();
+
 		calculate_dimensions();
 		load_sprites();
 		load_background();
+		Global.enemies.add(new Chitauri());
+		Global.enemies.add(new Biden());
+		Global.enemies.add(new Nixon());
+	}
+
+	public void new_wave() {
+		Constructor<? extends Enemy> et = null;
+		try {
+			if (Global.enemies.get(enemy_type).get_name().equals("Nixon")) {
+				Global.background = Global.nixon_background;
+			} else {
+				Global.background = Global.normal_background;
+			}
+			et = Global.enemies.get(enemy_type)
+					.getClass().getConstructor();
+		} catch (NoSuchMethodException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		} catch (SecurityException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
+		for (int i = 0; i < Global.GRID_WIDTH; i++) {
+			try {
+				
+				Enemy new_e = et.newInstance();
+				new_e.set_x(i);
+				new_e.set_y(0);
+				Global.actors.add(new_e);
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (InstantiationException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IllegalAccessException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IllegalArgumentException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (InvocationTargetException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		if (enemy_type == Global.enemies.size() - 1) {
+			enemy_type = 0;
+		} else {
+			enemy_type++;
+		}
 	}
 
 	public void game() {
@@ -92,7 +164,7 @@ public class BattleStar {
 		System.out.println("Player name: " + player_name);
 		Global.player = new Player(player_name);
 		Global.actors.add(Global.player);
-		
 		create_window();
+		new_wave();
 	}
 }

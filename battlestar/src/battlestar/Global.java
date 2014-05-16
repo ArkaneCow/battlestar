@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.util.*;
 
 import battlestar.game.actor.*;
+import battlestar.game.actor.enemy.Enemy;
 
 public class Global {
 	public static final int WINDOW_WIDTH = 800;
@@ -21,8 +22,15 @@ public class Global {
 	public static Map<String, Image> sprites;
 
 	public static Image background;
+	public static Image nixon_background;
+	public static Image normal_background;
 
 	public static Player player;
 
 	public static ArrayList<Actor> actors;
+	public static ArrayList<Enemy> enemies;
+	
+	public static int score = 0;
+	
+	public static BattleStar game;
 }
